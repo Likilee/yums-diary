@@ -1,6 +1,7 @@
+import type { AppProps } from 'next/app'
 import AppLayout from '@/layouts/AppLayout'
 import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import '@/styles/calendar.css'
 
 import { Inter } from '@next/font/google'
 

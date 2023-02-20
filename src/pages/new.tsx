@@ -1,9 +1,14 @@
-export default function NewDailyNote() {
-  const today = new Date()
+import CalendalModal from '@/components/CalenderModal'
+import { ModalTrigger } from '@/components/Modal'
+import { useState } from 'react'
 
-  return <div>
-    <h1>
-    {today.toLocaleDateString()}
-    </h1>
-    </div>
+export default function NewDailyNote() {
+  const [value, onChange] = useState(new Date())
+
+  return (
+    <>
+      <ModalTrigger modalId="calendar">{value.toLocaleDateString()}</ModalTrigger>
+      <CalendalModal value={value} onChange={onChange} />
+    </>
+  )
 }

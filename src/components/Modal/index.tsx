@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 
-type ModalType = 'create_note'
+type ModalType = 'create_note' | 'calendar'
 
 interface ModalProps {
   modalId: ModalType
