@@ -7,7 +7,7 @@ export default function AppLayout({ children }: PropsWithChildren) {
   return (
     <>
       <TopNavigation />
-      <div className="w-full px-7 h-[100%] ">{children}</div>
+      <div className="w-full px-7 flex-1 overflow-y-scroll scrollbar-hide">{children}</div>
       <BottomNavigation />
       <CreateNoteModal />
     </>

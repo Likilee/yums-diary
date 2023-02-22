@@ -1,5 +1,5 @@
 // import 'server-only' not working with API routes yet
-import { Kysely } from 'kysely'
+import { Generated, Kysely } from 'kysely'
 import { PlanetScaleDialect } from 'kysely-planetscale'
 
 /* 💡
@@ -14,12 +14,20 @@ CREATE TABLE daily_notes (
 );
  */
 export interface DailyNote {
-  id: number,
-  date: Date,
-  content: string,
-  position: number,
-  createdAt: Date,
-  updatedAt: Date,
+  id: Generated<number>
+  date: Date
+  content: string | null
+  created_at: Generated<Date>
+  updated_at: Generated<Date>
+}
+export interface CreateDailyNoteDTO {
+  date: Date
+  content: string
+}
+
+export interface UpdateDailyNoteDTO {
+  date?: Date
+  content?: string
 }
 
 /* 💡
@@ -33,10 +41,10 @@ CREATE TABLE categories (
 */
 
 export interface Category {
-  id: number,
-  name: string,
-  createdAt: Date,
-  updatedAt: Date,
+  id: Generated<number>
+  name: string
+  created_at: Generated<Date>
+  updated_at: Generated<Date>
 }
 
 /* 💡
@@ -53,21 +61,20 @@ CREATE TABLE category_notes (
 );
 */
 export interface CategoryNote {
-  id: number,
-  categoryId: number,
-  date: Date,
-  title: string,
-  content: string,
-  position: number,
-  createdAt: Date,
-  updatedAt: Date,
+  id: Generated<number>
+  category_id: number
+  date: Date
+  title: string
+  content: string
+  position: number
+  created_at: Generated<Date>
+  updated_at: Generated<Date>
 }
 
-
 interface Database {
-  dailyNote: DailyNote,
-  category: Category,
-  categoryNote: CategoryNote
+  daily_note: DailyNote
+  category: Category
+  category_note: CategoryNote
 }
 
 export const queryBuilder = new Kysely<Database>({

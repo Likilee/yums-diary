@@ -6,13 +6,13 @@ import { TbChevronLeft, TbPalette } from 'react-icons/tb'
 import { themeChange } from 'theme-change'
 
 export function TopNavigation() {
-  const path = usePathname();
-  const navTitle = getTitleFromPathName(path);
+  const path = usePathname()
+  const navTitle = getTitleFromPathName(path)
 
   const daisyUiThemes = ['valentine', 'autumn', 'retro', 'coffee']
   const themesOptions = daisyUiThemes.map((theme) => ({
     key: theme,
-    label: upperFirst(theme)
+    label: upperFirst(theme),
   }))
 
   useEffect(() => {

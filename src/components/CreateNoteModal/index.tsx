@@ -1,16 +1,15 @@
 import { Modal } from '@/components/Modal'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 export default function CreateNoteModal() {
   const router = useRouter()
 
   const handleClickNewDaily = () => {
-    router.push('/new')
+    router.push('/new/daily')
   }
 
   const handleClickNewNote = () => {
-    router.push('/note')
+    router.push('/new/note')
   }
   return (
     <Modal modalId="create_note">

@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html {
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar{
+  display: none;
+}
+
+#__next {
+
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  word-break: keep-all;
+}
+
 /* 💡 Theme-Change Active Button Class */
 .ACTIVECLASS {
   @apply btn-active

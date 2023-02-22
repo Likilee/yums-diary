@@ -4,6 +4,7 @@ type ModalType = 'create_note' | 'calendar'
 
 interface ModalProps {
   modalId: ModalType
+  className?: string
 }
 
 export function Modal({ modalId, children }: PropsWithChildren<ModalProps>) {
@@ -29,6 +30,10 @@ export function Modal({ modalId, children }: PropsWithChildren<ModalProps>) {
   )
 }
 
-export function ModalTrigger({ modalId, children }: PropsWithChildren<ModalProps>) {
-  return <label htmlFor={modalId}>{children}</label>
+export function ModalTrigger({ modalId, className, children }: PropsWithChildren<ModalProps>) {
+  return (
+    <label htmlFor={modalId} className={className}>
+      {children}
+    </label>
+  )
 }
