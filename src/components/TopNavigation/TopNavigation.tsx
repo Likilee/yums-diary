@@ -1,14 +1,15 @@
 import { getTitleFromPathName } from '@/lib/path'
 import { upperFirst } from '@/lib/string'
 import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { TbChevronLeft, TbPalette } from 'react-icons/tb'
 import { themeChange } from 'theme-change'
 
 export function TopNavigation() {
   const path = usePathname()
+  const router = useRouter()
   const navTitle = getTitleFromPathName(path)
-
   const daisyUiThemes = ['valentine', 'autumn', 'retro', 'coffee']
   const themesOptions = daisyUiThemes.map((theme) => ({
     key: theme,
@@ -20,10 +21,13 @@ export function TopNavigation() {
     // 👆 false parameter is required for react project
   }, [])
 
+  const handleClickBack = () => {
+    router.back()
+  }
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
-        <button className="btn btn-ghost btn-circle">
+        <button className="btn btn-ghost btn-circle" onClick={handleClickBack}>
           <TbChevronLeft className="text-2xl" />
         </button>
       </div>

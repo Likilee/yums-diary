@@ -20,11 +20,17 @@ export interface DailyNote {
   created_at: Generated<Date>
   updated_at: Generated<Date>
 }
+export interface DailyNoteDto {
+  id: number
+  date: string
+  content: string | null
+  created_at: string
+  updated_at?: string
+}
 export interface CreateDailyNoteDTO {
   date: Date
   content: string
 }
-
 export interface UpdateDailyNoteDTO {
   date?: Date
   content?: string

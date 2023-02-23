@@ -5,12 +5,14 @@ interface AutoGrowTextarea {
   onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void
   className?: string
   spellCheck?: boolean
+  placeholder?: string
 }
 
 export default function AutoGrowTextarea({
   value,
   onChange,
   className,
+  placeholder = '빛나는 정유미',
   spellCheck = false,
 }: AutoGrowTextarea) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
@@ -38,6 +40,7 @@ export default function AutoGrowTextarea({
       value={value}
       onChange={onChange}
       style={{ height: 'auto', minHeight: '256px' }}
+      placeholder={placeholder}
     />
   )
 }

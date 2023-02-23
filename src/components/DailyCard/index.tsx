@@ -1,8 +1,15 @@
-export default function DailyCard() {
+import DateTitle from '@/components/DateTitle'
+
+interface DailyCardProps {
+  date: string | Date
+  noteCount: number
+}
+
+export default function DailyCard({ date, noteCount }: DailyCardProps) {
   return (
     <button className="btn btn-outline btn-block flex flex-row justify-between">
-      <span>2월 23일 수요일</span>
-      <span>3개의 글</span>
+      <DateTitle date={date}></DateTitle>
+      <span>{`${noteCount} 개의 글`}</span>
     </button>
   )
 }
