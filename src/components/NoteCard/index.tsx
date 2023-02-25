@@ -4,9 +4,9 @@ interface NoteCardProps {
 
 export default function NoteCard({ content }: NoteCardProps) {
   return (
-    <div className="card w-full bg-base-100 shadow-xl">
-      <div className="card-body">
-        <p className="whitespace-nowrap overflow-hidden text-ellipsis">{content}</p>
+    <div className="w-full">
+      <div className="px-4">
+        <p className="break-words ">{content}</p>
       </div>
     </div>
   )

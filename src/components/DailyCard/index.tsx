@@ -6,6 +6,7 @@ interface DailyCardProps {
 }
 
 export default function DailyCard({ date, noteCount }: DailyCardProps) {
+  console.log('HERE', date)
   return (
     <button className="btn btn-outline btn-block flex flex-row justify-between">
       <DateTitle date={date}></DateTitle>

@@ -12,7 +12,7 @@ export const isSameFirstPath = (pathA: string, pathB: string) => {
 export const getTitleFromPathName = (pathName: string | null) => {
   switch (pathName) {
     case '/':
-      return '일기'
+      return ''
     case '/note':
       return '노트'
     default:

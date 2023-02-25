@@ -10,7 +10,20 @@ export function TopNavigation() {
   const path = usePathname()
   const router = useRouter()
   const navTitle = getTitleFromPathName(path)
-  const daisyUiThemes = ['valentine', 'autumn', 'retro', 'coffee']
+  const daisyUiThemes = [
+    'valentine',
+    'autumn',
+    'retro',
+    'coffee',
+    'cupcake',
+    'lemonade',
+    'garden',
+    'aqua',
+    'lofi',
+    'forest',
+    'cyberpunk',
+    'synthwave',
+  ]
   const themesOptions = daisyUiThemes.map((theme) => ({
     key: theme,
     label: upperFirst(theme),
@@ -41,11 +54,15 @@ export function TopNavigation() {
           </label>
           <ul
             tabIndex={0}
-            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32"
+            className="dropdown-content menu p-2 shadow bg-base-300 rounded-box w-32"
           >
             {themesOptions.map((theme) => (
               <li key={theme.key}>
-                <button data-set-theme={theme.key} data-act-class="ACTIVECLASS">
+                <button
+                  data-set-theme={theme.key}
+                  className="btn btn-ghost"
+                  data-act-class="btn-active"
+                >
                   {theme.label}
                 </button>
               </li>

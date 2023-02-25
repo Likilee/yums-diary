@@ -11,7 +11,10 @@ export function Modal({ modalId, children }: PropsWithChildren<ModalProps>) {
   return (
     <>
       <input type="checkbox" id={modalId} className="modal-toggle" />
-      <label htmlFor={modalId} className="modal modal-bottom sm:modal-middle cursor-pointer">
+      <label
+        htmlFor={modalId}
+        className="modal modal-bottom sm:modal-middle cursor-pointer  absolute"
+      >
         <label className="modal-box" htmlFor="">
           {children}
           {/* <h3 className="font-bold text-lg">Congratulations random Internet user!</h3>

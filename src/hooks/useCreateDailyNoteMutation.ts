@@ -3,6 +3,7 @@ import { CreateDailyNoteDTO, DailyNoteDto } from '@/lib/planetscale'
 import format from 'date-fns/format'
 
 const createNewDailyNote = async (data: CreateDailyNoteDTO): Promise<DailyNoteDto> => {
+  console.log('저장', data.date.toISOString())
   const res = await fetch('/api/notes/daily', {
     // headers: {
     //   'Content-Type': 'application/json',

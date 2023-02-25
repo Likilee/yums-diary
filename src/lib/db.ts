@@ -1,4 +1,5 @@
 import { queryBuilder, CreateDailyNoteDTO, UpdateDailyNoteDTO } from '@/lib/planetscale'
+import { sql } from 'kysely'
 
 export const createDailyNote = async (data: CreateDailyNoteDTO) => {
   const result = await queryBuilder
@@ -54,11 +55,12 @@ export const getAllDailyNotes = async () => {
   return result
 }
 
-export const getDailyNotesByDate = async (date: string | Date) => {
+export const getDailyNotesByDate = async (date: string) => {
+  const offsetHour = -(new Date().getTimezoneOffset() / 60)
   const result = await queryBuilder
     .selectFrom('daily_note')
     .selectAll()
-    .where('date', '=', new Date(date))
+    .where(sql`date(date_add(date, interval ${offsetHour} hour))`, '=', date)
     .orderBy('updated_at', 'desc')
     .execute()
   return result
@@ -66,11 +68,14 @@ export const getDailyNotesByDate = async (date: string | Date) => {
 
 export const getAllNoteCountByDate = async () => {
   const { count } = queryBuilder.fn
-
+  const offsetHour = -(new Date().getTimezoneOffset() / 60)
   const result = await queryBuilder
     .selectFrom('daily_note')
-    .select(['date', count('id').as('note_count')])
-    .groupBy('date')
+    .select([
+      sql`date(date_add(date, interval ${offsetHour} hour))`.as('date'),
+      count('id').as('note_count'),
+    ])
+    .groupBy(sql`date(date_add(date, interval ${offsetHour} hour))`)
     .having(count('id'), '>', 0)
     .orderBy('date', 'desc')
     .execute()

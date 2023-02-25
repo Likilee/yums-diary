@@ -1,6 +1,6 @@
-import { useRef, ChangeEvent, useEffect } from 'react'
+import { useRef, ChangeEvent, useEffect, FormEventHandler, FormEvent } from 'react'
 
-interface AutoGrowTextarea {
+interface AutoGrowTextareaProps {
   value: string
   onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void
   className?: string
@@ -14,13 +14,13 @@ export default function AutoGrowTextarea({
   className,
   placeholder = '빛나는 정유미',
   spellCheck = false,
-}: AutoGrowTextarea) {
+}: AutoGrowTextareaProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     if (textareaRef.current) {
       const element = textareaRef.current
-      element.style.height = 'inherit'
+      element.style.height = 'auto'
       const computedStyle = window.getComputedStyle(element)
       const height =
         parseInt(computedStyle.getPropertyValue('border-top-width'), 10) +
@@ -44,3 +44,23 @@ export default function AutoGrowTextarea({
     />
   )
 }
+
+// export function AutoGrowTextarea2({
+//   value,
+//   onInput,
+//   className,
+//   placeholder = '빛나는 정유미',
+//   spellCheck = false,
+// }: AutoGrowTextareaProps) {
+//   return (
+//     <p
+//       className={className}
+//       placeholder={placeholder}
+//       spellCheck={spellCheck}
+//       onInput={onInput}
+//       contentEditable
+//     >
+//       {value}
+//     </p>
+//   )
+// }
