@@ -28,7 +28,7 @@ export default function BottomNavigation() {
 
   return (
     <>
-      <div className="btm-nav btm-nav-sm static">
+      <div className="btm-nav btm-nav-sm">
         <BottomNavItem href="/">
           <TbCalendar className="text-2xl" />
         </BottomNavItem>

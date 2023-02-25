@@ -16,7 +16,7 @@ export default function HiddenTitle({ show, children }: PropsWithChildren<Hidden
     <h1
       className={cn(
         'w-fit',
-        'text-center text-lg font-semibold absolute left-1/2 top-9 -translate-y-1/2 -translate-x-1/2',
+        'text-center text-lg font-semibold fixed left-1/2 top-9 -translate-y-1/2 -translate-x-1/2',
         'transition-opacity duration-200 opacity-0',
         display && 'opacity-100',
       )}

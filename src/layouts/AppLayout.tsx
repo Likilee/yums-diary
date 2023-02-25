@@ -9,9 +9,11 @@ export default function AppLayout({
   className,
 }: PropsWithChildren<{ className?: string }>) {
   return (
-    <div className={cn('flex flex-col break-keep h-screen', className)}>
+    <div className={cn('h-full w-full', className)}>
       <TopNavigation />
-      <div className="w-full px-7 flex-1 overflow-y-scroll scrollbar-hide">{children}</div>
+      <div className="w-full px-7 flex-1 overflow-y-scroll scrollbar-hide h-[calc(100%-4rem-3rem)] absolute top-16 ">
+        {children}
+      </div>
       <BottomNavigation />
       <CreateNoteModal />
     </div>
