@@ -10,6 +10,12 @@ module.exports = {
         leeseoyun: 'var(--font-leeseoyun)',
         simkyungha: 'var(--font-simkyungha)',
       },
+      spacing: {
+        safebottom: 'env(safe-area-inset-bottom)',
+        safetop: 'env(safe-area-inset-top)',
+        safeleft: 'env(safe-area-inset-left)',
+        saferight: 'env(safe-area-inset-right)',
+      },
     },
   },
 

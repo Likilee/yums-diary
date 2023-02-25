@@ -4,15 +4,7 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { PropsWithChildren } from 'react'
-import {
-  TbBook2,
-  TbCalendar,
-  TbDots,
-  TbHome,
-  TbNotebook,
-  TbSearch,
-  TbSquarePlus,
-} from 'react-icons/tb'
+import { TbCalendar, TbNotebook, TbSquarePlus } from 'react-icons/tb'
 
 interface BottomNavItemProps {
   href: string
@@ -36,7 +28,7 @@ export default function BottomNavigation() {
 
   return (
     <>
-      <div className="btm-nav btm-nav-sm static">
+      <div className="btm-nav btm-nav-sm static mb-safebottom">
         <BottomNavItem href="/">
           <TbCalendar className="text-2xl" />
         </BottomNavItem>
