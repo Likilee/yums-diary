@@ -13,11 +13,7 @@ body::-webkit-scrollbar{
 
 #__next {
 
-  display: flex;
-  flex-direction: column;
   height: 100vh;
-
-  word-break: keep-all;
 }
 
 /* 💡 Theme-Change Active Button Class */
