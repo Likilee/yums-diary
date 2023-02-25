@@ -1,7 +1,7 @@
 {
   "theme_color": "#f5a623",
   "background_color": "#f8e71c",
-  "display": "fullscreen",
+  "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "name": "\uc720\ubbf8\uc758 \uc77c\uae30\uc7a5",
