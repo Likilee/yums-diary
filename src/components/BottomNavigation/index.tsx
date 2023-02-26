@@ -16,7 +16,10 @@ function BottomNavItem({ href, children }: PropsWithChildren<BottomNavItemProps>
 
   return (
     <button
-      className={classNames(isActive ? 'active text-primary-focus' : '', 'transition-all')}
+      className={classNames(
+        isActive ? 'active text-primary-focus border-t-0' : '',
+        'transition-all',
+      )}
     >
       <Link href={href}>{children}</Link>
     </button>
@@ -28,7 +31,7 @@ export default function BottomNavigation() {
 
   return (
     <>
-      <nav className="btm-nav z-navbottom">
+      <nav className="btm-nav btm-nav-sm border-t-2 z-navbottom box-content">
         <BottomNavItem href="/">
           <TbCalendar className="text-2xl" />
         </BottomNavItem>

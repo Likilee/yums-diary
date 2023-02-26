@@ -9,9 +9,18 @@ export default function AppLayout({
   className,
 }: PropsWithChildren<{ className?: string }>) {
   return (
-    <div className={cn('h-full w-full', className)}>
+    <div className={cn('h-full w-full flex', className)}>
       <TopNavigation />
-      <div className="w-full px-7 overflow-y-scroll scrollbar-hide h-[calc(100%-4rem-3rem)] absolute top-16 z-content">
+      <div
+        className={cn(
+          'flex-1 w-full overflow-y-scroll scrollbar-hide z-content',
+          'py-2',
+          'pl-[max(env(safe-area-inset-left),2rem)]', // ios safe-area left-padding
+          'pr-[max(env(safe-area-inset-right),2rem)]', // ios safe-area right-padding
+          'mt-[calc(2.5rem+max(env(safe-area-inset-top),0.5rem))] ', // subtrack top nav height
+          'mb-[calc(3rem+env(safe-area-inset-bottom))]', // subtrack bottom nav height
+        )}
+      >
         {children}
       </div>
       <BottomNavigation />

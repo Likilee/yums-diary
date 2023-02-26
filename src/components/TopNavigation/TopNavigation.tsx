@@ -33,21 +33,20 @@ export function TopNavigation() {
     themeChange(false)
     // 👆 false parameter is required for react project
   }, [])
-
   const handleClickBack = () => {
     router.back()
   }
   return (
-    <header className="navbar bg-base-100 fixed top-0 z-navtop">
-      <div className="navbar-start">
+    <header className="navbar bg-base-100 border-b-2 min-h-8 fixed top-0 z-navtop pt-[max(env(safe-area-inset-top),0.5rem)]">
+      <div className="navbar-start h-8">
         <button className="btn btn-ghost btn-circle" onClick={handleClickBack}>
           <TbChevronLeft className="text-2xl" />
         </button>
       </div>
-      <div className="navbar-center">
+      <div className="navbar-center h-8">
         <a className="btn btn-ghost normal-case text-xl">{navTitle}</a>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end h-8">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle m-1">
             <TbPalette className="text-2xl" />

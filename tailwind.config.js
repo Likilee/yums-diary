@@ -18,7 +18,7 @@ module.exports = {
       },
       zIndex: {
         navtop: 3,
-        content: 0,
+        content: 'auto',
         navbottom: 2,
       },
     },
