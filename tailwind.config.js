@@ -16,6 +16,11 @@ module.exports = {
         safeleft: 'env(safe-area-inset-left)',
         saferight: 'env(safe-area-inset-right)',
       },
+      zIndex: {
+        navtop: 3,
+        content: 0,
+        navbottom: 2,
+      },
     },
   },
 

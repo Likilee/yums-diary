@@ -28,7 +28,7 @@ export default function BottomNavigation() {
 
   return (
     <>
-      <div className="btm-nav btm-nav-sm">
+      <nav className="btm-nav z-navbottom">
         <BottomNavItem href="/">
           <TbCalendar className="text-2xl" />
         </BottomNavItem>
@@ -46,7 +46,7 @@ export default function BottomNavigation() {
         <button>
           <TbDots className="text-2xl" />
         </button> */}
-      </div>
+      </nav>
     </>
   )
 }
