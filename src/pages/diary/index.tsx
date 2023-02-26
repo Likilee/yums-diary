@@ -1,6 +1,6 @@
 import DailyCard from '@/components/DailyCard'
 import HiddenTitle from '@/components/HiddenTitle'
-import { useGetAllDailyNotes } from '@/hooks/useGetAllDailyNotes'
+import { useGetAllDailyNotes } from '@/hooks/service/useGetAllDailyNotes'
 import Link from 'next/link'
 
 export default function DiaryPage() {

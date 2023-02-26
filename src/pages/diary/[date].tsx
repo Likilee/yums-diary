@@ -1,7 +1,7 @@
 import DateTitle from '@/components/DateTitle'
 import HiddenTitle from '@/components/HiddenTitle'
 import NoteCard from '@/components/NoteCard'
-import { useGetDailyNotesByDate } from '@/hooks/useGetDailyNotesByDate'
+import { useGetDailyNotesByDate } from '@/hooks/service/useGetDailyNotesByDate'
 import { useRouter } from 'next/router'
 
 export default function DailyPage() {

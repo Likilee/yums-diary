@@ -1,12 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
 import { CreateDiaryDTO, DiaryDto } from '@/lib/planetscale'
-import format from 'date-fns/format'
 
 const createNewDailyNote = async (data: CreateDiaryDTO): Promise<DiaryDto> => {
-  const res = await fetch('/api/notes/daily', {
-    // headers: {
-    //   'Content-Type': 'application/json',
-    // },
+  const res = await fetch('/api/diary', {
     method: 'POST',
     body: JSON.stringify({
       date: data.date.toISOString(),
