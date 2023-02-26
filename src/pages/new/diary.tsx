@@ -2,13 +2,13 @@ import AutoGrowTextarea from '@/components/AutoGrowTextarea'
 import CalendalModal from '@/components/CalenderModal'
 import DateTitle from '@/components/DateTitle'
 import { ModalTrigger } from '@/components/Modal'
-import { useCreateDailyNoteMutation } from '@/hooks/useCreateDailyNoteMutation'
+import { useCreateDailyNoteMutation } from '@/hooks/service/useCreateDailyNoteMutation'
 import { useTempDailyNote } from '@/hooks/useTempDailyNote'
 import format from 'date-fns/format'
 import ko from 'date-fns/locale/ko'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { TbChevronDown, TbCircleCheck } from 'react-icons/tb'
+import { TbChevronDown } from 'react-icons/tb'
 import useIsVisible from '@/hooks/useIsVisible'
 import HiddenTitle from '@/components/HiddenTitle'
 import BottomOverlay from '@/components/BottomOverlay/BottomOverlay'
@@ -16,7 +16,7 @@ import { toast } from 'react-hot-toast'
 
 const MIN_CONTENT_LENGTH = 5
 /* 💡 이 후 특정 날짜로 New 로 시작하는 기능 추가할 때, query parameter 사용 필요 */
-export default function NewDaily() {
+export default function NewDiaryPage() {
   const router = useRouter()
   const [date, setDate] = useState<Date>(new Date())
   const [content, setContent] = useState<string>('')
@@ -53,7 +53,7 @@ export default function NewDaily() {
         onSuccess: () => {
           setTempDaily('')
           const timeZoneFormattedDate = format(date, 'yyyy-MM-dd', { locale: ko })
-          router.push(`/daily/${timeZoneFormattedDate}`)
+          router.push(`/diary/${timeZoneFormattedDate}`)
           toast.success('유미의 새로운 기억 저장 ❤️')
         },
         onError: () => {
@@ -80,7 +80,10 @@ export default function NewDaily() {
         className="textarea textarea-ghost w-full resize-none text-lg"
       />
       <BottomOverlay>
-        <button className="bg-base-100 border-0 text-current btn" onClick={handleOnSubmit}>
+        <button
+          className="bg-base-100 border-0 text-current btn text-lg "
+          onClick={handleOnSubmit}
+        >
           SAVE
         </button>
       </BottomOverlay>
