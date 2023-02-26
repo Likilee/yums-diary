@@ -37,7 +37,7 @@ export function TopNavigation() {
     router.back()
   }
   return (
-    <header className="navbar bg-base-100 border-b-2 min-h-8 fixed top-0 z-navtop pt-[max(env(safe-area-inset-top),0.5rem)]">
+    <header className="navbar bg-base-100 border-b border-current min-h-8 fixed top-0 z-navtop pt-[max(env(safe-area-inset-top),0.5rem)]">
       <div className="navbar-start h-8">
         <button className="btn btn-ghost btn-circle" onClick={handleClickBack}>
           <TbChevronLeft className="text-2xl" />
