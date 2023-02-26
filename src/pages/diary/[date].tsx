@@ -1,4 +1,3 @@
-import BottomOverlay from '@/components/BottomOverlay/BottomOverlay'
 import DateTitle from '@/components/DateTitle'
 import HiddenTitle from '@/components/HiddenTitle'
 import NoteCard from '@/components/NoteCard'
@@ -10,7 +9,6 @@ export default function DailyPage() {
   const { query } = router
   const { data } = useGetDailyNotesByDate(query.date as string)
 
-  console.log(data)
   return (
     <>
       <HiddenTitle show={true}>

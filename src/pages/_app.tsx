@@ -10,6 +10,7 @@ import Head from 'next/head'
 const leeSeoyun = localFont({
   src: '../../public/font/LeeSeoyun.woff2',
   variable: '--font-leeseoyun',
+  display: 'swap',
   preload: true,
 })
 

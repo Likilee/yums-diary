@@ -12,7 +12,7 @@ export default function DiaryPage() {
       <div className="flex flex-col gap-2">
         {data &&
           data.map(({ date, note_count }) => (
-            <Link href={`/daily/${date}`} key={date}>
+            <Link href={`/diary/${date}`} key={date}>
               <DailyCard date={date} noteCount={note_count} />
             </Link>
           ))}

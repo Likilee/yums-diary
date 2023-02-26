@@ -1,3 +1,3 @@
-export default function NewCategoryNote() {
-  return <div>categorynote</div>
+export default function NewNotePage() {
+  return <div>Note</div>
 }
