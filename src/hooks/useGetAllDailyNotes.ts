@@ -1,4 +1,4 @@
-import { DailyNoteDto } from '@/lib/planetscale'
+import { DiaryDto } from '@/lib/planetscale'
 import { useQuery } from '@tanstack/react-query'
 
 const getAllDailyNotes = async (): Promise<{ date: string; note_count: number }[]> => {

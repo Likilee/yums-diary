@@ -2,39 +2,39 @@
 import { Generated, Kysely } from 'kysely'
 import { PlanetScaleDialect } from 'kysely-planetscale'
 
-export interface DailyNote {
+export interface Diary {
   id: Generated<number>
   date: Date
   content: string | null
   created_at: Generated<Date>
   updated_at: Generated<Date>
 }
-export interface DailyNoteDto {
+export interface DiaryDto {
   id: number
   date: string
   content: string | null
   created_at: string
   updated_at?: string
 }
-export interface CreateDailyNoteDTO {
+export interface CreateDiaryDTO {
   date: Date
   content: string
 }
-export interface UpdateDailyNoteDTO {
+export interface UpdateDiaryDTO {
   date?: Date
   content?: string
 }
 
-export interface Category {
+export interface Notebook {
   id: Generated<number>
   name: string
   created_at: Generated<Date>
   updated_at: Generated<Date>
 }
 
-export interface CategoryNote {
+export interface Note {
   id: Generated<number>
-  category_id: number
+  notebook_id: number
   date: Date
   title: string
   content: string
@@ -44,9 +44,9 @@ export interface CategoryNote {
 }
 
 interface Database {
-  daily_note: DailyNote
-  category: Category
-  category_note: CategoryNote
+  diary: Diary
+  notebook: Notebook
+  note: Note
 }
 
 export const queryBuilder = new Kysely<Database>({

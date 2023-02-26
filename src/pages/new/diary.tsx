@@ -53,7 +53,7 @@ export default function NewDiaryPage() {
         onSuccess: () => {
           setTempDaily('')
           const timeZoneFormattedDate = format(date, 'yyyy-MM-dd', { locale: ko })
-          router.push(`/daily/${timeZoneFormattedDate}`)
+          router.push(`/diary/${timeZoneFormattedDate}`)
           toast.success('유미의 새로운 기억 저장 ❤️')
         },
         onError: () => {

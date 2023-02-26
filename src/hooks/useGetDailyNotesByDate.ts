@@ -1,8 +1,7 @@
-import { DailyNoteDto } from '@/lib/planetscale'
+import { DiaryDto } from '@/lib/planetscale'
 import { useQuery } from '@tanstack/react-query'
 
-const getDailyNotesByDate = async (date: string | Date): Promise<DailyNoteDto[]> => {
-  console.log('Date', date)
+const getDailyNotesByDate = async (date: string | Date): Promise<DiaryDto[]> => {
   const res = await fetch(`/api/notes/daily/${date}`)
   return res.json()
 }
