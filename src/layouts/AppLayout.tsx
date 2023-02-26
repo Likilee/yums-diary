@@ -1,8 +1,10 @@
+import AppToaster from '@/components/AppToaster/AppToaster'
 import BottomNavigation from '@/components/BottomNavigation'
 import CreateNoteModal from '@/components/CreateNoteModal'
 import { TopNavigation } from '@/components/TopNavigation/TopNavigation'
 import cn from 'classnames'
 import { PropsWithChildren } from 'react'
+import { Toaster } from 'react-hot-toast'
 
 export default function AppLayout({
   children,
@@ -25,6 +27,7 @@ export default function AppLayout({
       </div>
       <BottomNavigation />
       <CreateNoteModal />
+      <AppToaster />
     </div>
   )
 }

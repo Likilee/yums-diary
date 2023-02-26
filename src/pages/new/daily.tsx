@@ -8,10 +8,13 @@ import format from 'date-fns/format'
 import ko from 'date-fns/locale/ko'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { TbChevronDown } from 'react-icons/tb'
+import { TbChevronDown, TbCircleCheck } from 'react-icons/tb'
 import useIsVisible from '@/hooks/useIsVisible'
 import HiddenTitle from '@/components/HiddenTitle'
+import BottomOverlay from '@/components/BottomOverlay/BottomOverlay'
+import { toast } from 'react-hot-toast'
 
+const MIN_CONTENT_LENGTH = 5
 /* 💡 이 후 특정 날짜로 New 로 시작하는 기능 추가할 때, query parameter 사용 필요 */
 export default function NewDaily() {
   const router = useRouter()
@@ -39,6 +42,11 @@ export default function NewDaily() {
 
   // mutation query 부터 만들자.
   const handleOnSubmit = (event: any) => {
+    if (content.trim().length < MIN_CONTENT_LENGTH) {
+      toast('저장하기에 너무 짧지 않아요? ㅜㅜ')
+      return
+    }
+
     mutate(
       { date, content },
       {
@@ -46,6 +54,10 @@ export default function NewDaily() {
           setTempDaily('')
           const timeZoneFormattedDate = format(date, 'yyyy-MM-dd', { locale: ko })
           router.push(`/daily/${timeZoneFormattedDate}`)
+          toast.success('유미의 새로운 기억 저장 ❤️')
+        },
+        onError: () => {
+          toast.error('문제가 있나봐요 개발자에게 문의하세요!')
         },
       },
     )
@@ -65,11 +77,13 @@ export default function NewDaily() {
       <AutoGrowTextarea
         value={content}
         onChange={handleTextChange}
-        className="textarea textarea-ghost w-full resize-none"
+        className="textarea textarea-ghost w-full resize-none text-lg"
       />
-      <button className="btn" onClick={handleOnSubmit}>
-        MUTATE
-      </button>
+      <BottomOverlay>
+        <button className="bg-base-100 border-0 text-current btn" onClick={handleOnSubmit}>
+          SAVE
+        </button>
+      </BottomOverlay>
       <CalendalModal value={date} onChange={handleSetDate} />
     </>
   )
