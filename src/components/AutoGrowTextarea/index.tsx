@@ -1,4 +1,5 @@
-import { useRef, ChangeEvent, useEffect, FormEventHandler, FormEvent } from 'react'
+import cn from 'classnames'
+import { useRef, ChangeEvent, useEffect } from 'react'
 
 interface AutoGrowTextareaProps {
   value: string
@@ -6,6 +7,7 @@ interface AutoGrowTextareaProps {
   className?: string
   spellCheck?: boolean
   placeholder?: string
+  minHeight?: string
 }
 
 export default function AutoGrowTextarea({
@@ -14,53 +16,27 @@ export default function AutoGrowTextarea({
   className,
   placeholder = '빛나는 정유미',
   spellCheck = false,
+  minHeight = '256px',
 }: AutoGrowTextareaProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     if (textareaRef.current) {
-      const element = textareaRef.current
-      element.style.height = 'auto'
-      const computedStyle = window.getComputedStyle(element)
-      const height =
-        parseInt(computedStyle.getPropertyValue('border-top-width'), 10) +
-        parseInt(computedStyle.getPropertyValue('padding-top'), 10) +
-        element.scrollHeight +
-        parseInt(computedStyle.getPropertyValue('padding-bottom'), 10) +
-        parseInt(computedStyle.getPropertyValue('border-bottom-width'), 10)
-      element.style.height = `${height}px`
+      const textarea = textareaRef.current
+      textarea.style.height = 'auto'
+      const height = textarea.scrollHeight + textarea.offsetHeight - textarea.clientHeight
+      textarea.style.height = `${height}px`
     }
   }, [value])
 
   return (
     <textarea
-      className={className}
+      className={cn(`h-auto min-h-[${minHeight}]`, className)}
       spellCheck={spellCheck}
       ref={textareaRef}
       value={value}
       onChange={onChange}
-      style={{ height: 'auto', minHeight: '256px' }}
       placeholder={placeholder}
     />
   )
 }
-
-// export function AutoGrowTextarea2({
-//   value,
-//   onInput,
-//   className,
-//   placeholder = '빛나는 정유미',
-//   spellCheck = false,
-// }: AutoGrowTextareaProps) {
-//   return (
-//     <p
-//       className={className}
-//       placeholder={placeholder}
-//       spellCheck={spellCheck}
-//       onInput={onInput}
-//       contentEditable
-//     >
-//       {value}
-//     </p>
-//   )
-// }

@@ -16,7 +16,9 @@ export default function DailyPage() {
       </HiddenTitle>
       <section className="flex flex-col gap-2">
         {data &&
-          data.map((note, index, array) => <NoteCard key={note.id} content={note.content} />)}
+          data.map(({ id, date, content }) => (
+            <NoteCard key={id} id={id} date={date} content={content} />
+          ))}
       </section>
     </>
   )
