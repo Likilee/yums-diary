@@ -21,6 +21,7 @@ export interface CreateDiaryDTO {
   content: string
 }
 export interface UpdateDiaryDTO {
+  id: number
   date?: Date
   content?: string
 }

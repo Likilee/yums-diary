@@ -1,4 +1,4 @@
-import { createDailyNote, getAllNoteCountByDate } from '@/lib/db'
+import { createDailyNote, getAllNoteCountByDate, updateDailyNote } from '@/lib/db'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -15,6 +15,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
       case 'GET': {
         const data = await getAllNoteCountByDate()
+        res.status(200).json(data)
+      }
+      case 'PUT': {
+        const body = JSON.parse(req.body) // (data: {id: number, date?: Date, content?: string}
+        const data = await updateDailyNote(body.data)
         res.status(200).json(data)
       }
     }

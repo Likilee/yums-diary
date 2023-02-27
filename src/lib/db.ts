@@ -26,16 +26,16 @@ export const getDailyNoteById = async (id: number) => {
   return result ? result : null
 }
 
-export const updateDailyNote = async (id: number, data: UpdateDiaryDTO) => {
+export const updateDailyNote = async (data: UpdateDiaryDTO) => {
   await queryBuilder
     .updateTable('diary')
     .set({
       date: data.date,
       content: data.content,
     })
-    .where('id', '=', id)
+    .where('id', '=', data.id)
     .executeTakeFirst()
-  return getDailyNoteById(+id)
+  return getDailyNoteById(+data.id)
 }
 
 export const deleteDailyNote = async (id: number) => {
