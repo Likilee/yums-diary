@@ -59,7 +59,7 @@ export const getDailyNotesByDate = async (date: string) => {
     .selectFrom('diary')
     .selectAll()
     .where(sql`date(date_add(date, interval ${OFFSET_HOUR} hour))`, '=', date)
-    .orderBy('updated_at', 'desc')
+    .orderBy('date', 'desc')
     .execute()
   return result
 }
