@@ -11,16 +11,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           date: new Date(body.date),
           content: body.content,
         })
-        res.status(201).json(data)
+        return res.status(201).json(data)
       }
       case 'GET': {
         const data = await getAllNoteCountByDate()
-        res.status(200).json(data)
+        return res.status(200).json(data)
       }
       case 'PUT': {
         const body = JSON.parse(req.body) // (data: {id: number, date?: Date, content?: string}
         const data = await updateDailyNote(body.data)
-        res.status(200).json(data)
+        return res.status(200).json(data)
       }
     }
   } catch (e: any) {

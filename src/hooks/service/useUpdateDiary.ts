@@ -5,7 +5,11 @@ const updateDiary = async (data: UpdateDiaryDTO): Promise<DiaryDto> => {
   const res = await fetch('/api/diary', {
     method: 'PUT',
     body: JSON.stringify({
-      data,
+      data: {
+        id: data.id,
+        date: data.date || undefined,
+        content: data.content || undefined,
+      },
     }),
   })
   return res.json()
