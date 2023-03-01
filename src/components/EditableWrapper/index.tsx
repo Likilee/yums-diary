@@ -70,11 +70,13 @@ function EditableWrapper({
       onTouchStart={handleMouseDown}
       onTouchEnd={handleRelease}
       className={cn(
-        `scale-[${scale}]`,
         'flex flex-row relative',
         'transform transition-transform duration-200 ease-in-out',
         'touch-none',
       )}
+      style={{
+        transform: `scale(${scale})`,
+      }}
     >
       {children}
       <div ref={containerRef} className="transform transition-all duration-500 ease-in-out">
