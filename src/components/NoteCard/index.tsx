@@ -1,8 +1,8 @@
 import AutoGrowTextarea from '@/components/AutoGrowTextarea'
+import EditableWrapper from '@/components/EditableWrapper'
 import { useUpdateDiary } from '@/hooks/service/useUpdateDiary'
 import debounce from '@/lib/debounce'
-import { DiaryDto, UpdateDiaryDTO } from '@/lib/planetscale'
-import { MutateOptions } from '@tanstack/react-query'
+import { UpdateDiaryDTO } from '@/lib/planetscale'
 import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 
 interface NoteCardProps {
@@ -22,6 +22,7 @@ const useDebouncedUpdate = (delay: number) => {
   )
   return debouncedUpdateDiary
 }
+
 export default function NoteCard({ id, date, content }: NoteCardProps) {
   const [newContent, setNewContent] = useState<string>(content || '')
   useEffect(() => {
@@ -36,11 +37,17 @@ export default function NoteCard({ id, date, content }: NoteCardProps) {
   }
 
   return (
-    <AutoGrowTextarea
-      value={newContent || ''}
-      onChange={handleTextChange}
-      minHeight="1rem"
-      className="textarea textarea-ghost w-full whitespace-pre-wrap break-words resize-none text-lg border border-current rounded-md h-fit"
-    />
+    <EditableWrapper
+      triggerTimeMs={500}
+      onDelete={() => console.log('delete')}
+      onMove={() => console.log('move')}
+    >
+      <AutoGrowTextarea
+        value={newContent || ''}
+        onChange={handleTextChange}
+        minHeight="1rem"
+        className="textarea textarea-ghost w-full whitespace-pre-wrap break-words resize-none text-lg border border-current rounded-md h-fit"
+      />
+    </EditableWrapper>
   )
 }
