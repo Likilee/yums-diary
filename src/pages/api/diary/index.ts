@@ -1,30 +1,34 @@
 import { createDailyNote, getAllNoteCountByDate, updateDailyNote } from '@/lib/db'
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest } from 'next/server'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export const config = {
+  runtime: 'edge',
+  regions: ['icn1', 'hnd1'], //	Seoul, South Korea	AWS ap-northeast-2 https://vercel.com/docs/concepts/edge-network/regions#region-list
+}
+
+export default async function handler(req: NextRequest) {
   try {
     switch (req.method) {
       case 'POST': {
-        const body = JSON.parse(req.body)
-
+        const body = await req.json()
         const data = await createDailyNote({
           date: new Date(body.date),
           content: body.content,
         })
-        return res.status(201).json(data)
+        return new Response(JSON.stringify(data), { status: 201 })
       }
       case 'GET': {
         const data = await getAllNoteCountByDate()
-        return res.status(200).json(data)
+        return new Response(JSON.stringify(data), { status: 200 })
       }
       case 'PUT': {
-        const body = JSON.parse(req.body) // (data: {id: number, date?: Date, content?: string}
+        const body = await req.json() // (data: {id: number, date?: Date, content?: string}
         const data = await updateDailyNote(body.data)
-        return res.status(200).json(data)
+        return new Response(JSON.stringify(data), { status: 200 })
       }
     }
   } catch (e: any) {
     console.log(e)
-    return res.status(500).json({ message: e.message })
+    return new Response(JSON.stringify({ message: e.message }), { status: 500 })
   }
 }
