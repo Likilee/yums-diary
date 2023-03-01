@@ -1,17 +1,22 @@
 import { getDailyNotesByDate } from '@/lib/db'
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest } from 'next/server'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export const config = {
+  runtime: 'edge',
+  regions: ['icn1', 'hnd1'], //	Seoul, South Korea	AWS ap-northeast-2 https://vercel.com/docs/concepts/edge-network/regions#region-list
+}
+
+export default async function handler(req: NextRequest) {
   try {
     switch (req.method) {
       case 'GET': {
-        const { date } = req.query
+        const date = req.nextUrl.searchParams.get('date')
         const data = await getDailyNotesByDate(date as string)
-        return res.status(200).json(data)
+        return new Response(JSON.stringify(data), { status: 200 })
       }
     }
   } catch (e: any) {
     console.log(e)
-    return res.status(500).json({ message: e.message })
+    return new Response(JSON.stringify({ message: e.message }), { status: 500 })
   }
 }
