@@ -67,22 +67,24 @@ export default function DailyPage() {
   }
   return (
     <>
-      <HiddenTitle show={true}>
-        <DateTitle date={query.date as string} />
-      </HiddenTitle>
-      <section ref={outsideClickBoundaryRef} className="flex flex-col gap-2">
-        {data &&
-          data.map(({ id, date, content }) => (
-            <NoteCard
-              key={id}
-              id={id}
-              date={date}
-              content={content}
-              outsideClickBoundary={outsideClickBoundaryRef}
-              onEditMode={() => handleOnEditMode(id)}
-            />
-          ))}
-      </section>
+      <div className="h-screen w-full" ref={outsideClickBoundaryRef}>
+        <HiddenTitle show={true}>
+          <DateTitle date={query.date as string} />
+        </HiddenTitle>
+        <section className="flex flex-col gap-2">
+          {data &&
+            data.map(({ id, date, content }) => (
+              <NoteCard
+                key={id}
+                id={id}
+                date={date}
+                content={content}
+                outsideClickBoundary={outsideClickBoundaryRef}
+                onEditMode={() => handleOnEditMode(id)}
+              />
+            ))}
+        </section>
+      </div>
       <CalendalModal value={targetDate} onChange={handleSetTargetDate}>
         <label htmlFor="calendar" className="btn btn-block mt-4" onClick={handleOnMove}>
           <DateTitle date={targetDate} />
