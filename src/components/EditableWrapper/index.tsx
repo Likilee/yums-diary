@@ -1,24 +1,25 @@
-import React, { useState, useRef, PropsWithChildren, MouseEvent } from 'react'
+import React, { useState, useRef, PropsWithChildren, MouseEvent, RefObject } from 'react'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import cn from 'classnames'
 import { TbCalendarEvent, TbTrash } from 'react-icons/tb'
+import { ModalTrigger } from '@/components/Modal'
 
 type Props = {
+  onEditMode: () => void
   triggerTimeMs?: number
-  onDelete: () => void
-  onMove: () => void
+  boundary?: RefObject<HTMLElement>
 }
 
-function EditableWrapper({
+export default function EditableWrapper({
+  onEditMode,
   triggerTimeMs = 750,
-  onDelete,
-  onMove,
   children,
+  boundary,
 }: PropsWithChildren<Props>) {
   const [isEditMode, setIsEditMode] = useState(false)
   const [scale, setScale] = useState(1.0)
   const timerRef = useRef<number | null>(null)
-  const containerRef = useOutsideClick<HTMLDivElement>(() => setIsEditMode(false))
+  const containerRef = useOutsideClick<HTMLDivElement>(() => setIsEditMode(false), boundary)
 
   const handleEditMode = () => {
     setIsEditMode(true)
@@ -35,41 +36,46 @@ function EditableWrapper({
     setScale(1.0)
   }
 
-  const handleOnDelete = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleOnDelete = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation()
-    onDelete()
+    onEditMode()
   }
 
-  const handleOnMove = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleOnMove = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation()
-    onMove()
+    onEditMode()
   }
 
   const deleteButton = (
-    <button
-      className={cn(
-        'p-2 bg-base-200 text-2xl text-base-content rounded-full border-2 border-base-300 ',
-        'active:scale-75 transform transition-transform duration-200 ease-in-out',
-      )}
-      onClick={handleOnDelete}
-      onTouchStart={(e) => e.stopPropagation()}
-      onMouseDown={(e) => e.stopPropagation()}
-    >
-      <TbTrash />
-    </button>
+    <ModalTrigger modalId="confirm">
+      <div
+        className={cn(
+          'p-2 bg-base-200 text-2xl text-base-content rounded-full border-2 border-base-300 ',
+          'active:scale-75 transform transition-transform duration-200 ease-in-out',
+        )}
+        onClick={handleOnDelete}
+        onTouchStart={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <TbTrash />
+      </div>
+    </ModalTrigger>
   )
+
   const moveButton = (
-    <button
-      className={cn(
-        'p-2 bg-base-200 text-2xl text-base-content rounded-full border-2 border-base-300 active:scale-90',
-        'active:scale-75 transform transition-transform duration-200 ease-in-out',
-      )}
-      onClick={handleOnMove}
-      onTouchStart={(e) => e.stopPropagation()}
-      onMouseDown={(e) => e.stopPropagation()}
-    >
-      <TbCalendarEvent />
-    </button>
+    <ModalTrigger modalId="calendar">
+      <div
+        className={cn(
+          'p-2 bg-base-200 text-2xl text-base-content rounded-full border-2 border-base-300 active:scale-90',
+          'active:scale-75 transform transition-transform duration-200 ease-in-out',
+        )}
+        onClick={handleOnMove}
+        onTouchStart={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <TbCalendarEvent />
+      </div>
+    </ModalTrigger>
   )
 
   return (
@@ -99,5 +105,3 @@ function EditableWrapper({
     </div>
   )
 }
-
-export default EditableWrapper

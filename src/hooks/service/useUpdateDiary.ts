@@ -1,5 +1,6 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { DiaryDto, UpdateDiaryDTO } from '@/lib/planetscale'
+import { DIARY_KEY } from '@/hooks/service/queryKey'
 
 const updateDiary = async (data: UpdateDiaryDTO): Promise<DiaryDto> => {
   const res = await fetch('/api/diary', {
@@ -7,7 +8,7 @@ const updateDiary = async (data: UpdateDiaryDTO): Promise<DiaryDto> => {
     body: JSON.stringify({
       data: {
         id: data.id,
-        date: data.date || undefined,
+        date: data.date ? new Date(data.date) : undefined,
         content: data.content || undefined,
       },
     }),
@@ -16,7 +17,7 @@ const updateDiary = async (data: UpdateDiaryDTO): Promise<DiaryDto> => {
 }
 
 export const useUpdateDiary = () => {
-  // const queryClient = useQueryClient()
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: updateDiary,
     // onMutate: async (slug) => {
@@ -31,8 +32,8 @@ export const useUpdateDiary = () => {
     // onError: (err, newViews, context) => {
     //   queryClient.setQueryData(['views'], context?.previousViews)
     // },
-    // onSettled: () => {
-    //   queryClient.invalidateQueries({ queryKey: ['views'] })
-    // },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: [DIARY_KEY] })
+    },
   })
 }
