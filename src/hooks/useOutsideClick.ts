@@ -1,13 +1,25 @@
-import { useEffect, useRef } from 'react'
+import { RefObject, useEffect, useRef } from 'react'
 
 type CallbackType = () => void
 
-const useOutsideClick = <T extends HTMLElement>(callback: CallbackType): React.RefObject<T> => {
+const useOutsideClick = <T extends HTMLElement, U extends HTMLElement = HTMLElement>(
+  callback: CallbackType,
+  boundary?: RefObject<U>,
+): React.RefObject<T> => {
   const ref = useRef<T>(null)
 
   useEffect(() => {
     const handleClick = (event: MouseEvent | TouchEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
+      if (!ref.current || !(event.target instanceof Node)) return
+      if (!boundary && !ref.current.contains(event.target)) {
+        callback()
+      }
+      if (
+        boundary &&
+        boundary.current &&
+        boundary.current.contains(event.target) &&
+        !ref.current.contains(event.target)
+      ) {
         callback()
       }
     }
@@ -15,12 +27,12 @@ const useOutsideClick = <T extends HTMLElement>(callback: CallbackType): React.R
     const isTouchDevice = 'ontouchstart' in document.documentElement
     const clickEvent = isTouchDevice ? 'touchstart' : 'mousedown'
 
-    document.addEventListener(clickEvent, handleClick, true)
+    document.addEventListener(clickEvent, handleClick, false)
 
     return () => {
-      document.removeEventListener(clickEvent, handleClick, true)
+      document.removeEventListener(clickEvent, handleClick, false)
     }
-  }, [callback, ref])
+  }, [callback, ref, boundary])
 
   return ref
 }
