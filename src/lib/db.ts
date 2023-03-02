@@ -30,7 +30,7 @@ export const updateDailyNote = async (data: UpdateDiaryDTO) => {
   await queryBuilder
     .updateTable('diary')
     .set({
-      date: data.date,
+      date: data.date ? new Date(data.date) : undefined,
       content: data.content,
     })
     .where('id', '=', data.id)
