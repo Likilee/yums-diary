@@ -6,16 +6,19 @@ const useOutsideClick = <T extends HTMLElement>(callback: CallbackType): React.R
   const ref = useRef<T>(null)
 
   useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
+    const handleClick = (event: MouseEvent | TouchEvent) => {
       if (ref.current && !ref.current.contains(event.target as Node)) {
         callback()
       }
     }
 
-    document.addEventListener('mousedown', handleClick, true)
+    const isTouchDevice = 'ontouchstart' in document.documentElement
+    const clickEvent = isTouchDevice ? 'touchstart' : 'mousedown'
+
+    document.addEventListener(clickEvent, handleClick, true)
 
     return () => {
-      document.removeEventListener('mousedown', handleClick, true)
+      document.removeEventListener(clickEvent, handleClick, true)
     }
   }, [callback, ref])
 
