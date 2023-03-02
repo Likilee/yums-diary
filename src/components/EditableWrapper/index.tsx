@@ -47,7 +47,10 @@ function EditableWrapper({
 
   const deleteButton = (
     <button
-      className=" p-2 bg-base-200 text-2xl text-base-content rounded-full border-2 border-base-300"
+      className={cn(
+        'p-2 bg-base-200 text-2xl text-base-content rounded-full border-2 border-base-300 ',
+        'active:scale-75 transform transition-transform duration-200 ease-in-out',
+      )}
       onClick={handleOnDelete}
       onTouchStart={(e) => e.stopPropagation()}
       onMouseDown={(e) => e.stopPropagation()}
@@ -57,7 +60,10 @@ function EditableWrapper({
   )
   const moveButton = (
     <button
-      className=" p-2 bg-base-200 text-2xl text-base-content rounded-full border-2 border-base-300"
+      className={cn(
+        'p-2 bg-base-200 text-2xl text-base-content rounded-full border-2 border-base-300 active:scale-90',
+        'active:scale-75 transform transition-transform duration-200 ease-in-out',
+      )}
       onClick={handleOnMove}
       onTouchStart={(e) => e.stopPropagation()}
       onMouseDown={(e) => e.stopPropagation()}
