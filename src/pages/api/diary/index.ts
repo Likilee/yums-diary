@@ -1,4 +1,9 @@
-import { createDailyNote, getAllNoteCountByDate, updateDailyNote } from '@/lib/db'
+import {
+  createDailyNote,
+  getAllNoteCountByDate,
+  updateDailyNote,
+  deleteDailyNote,
+} from '@/lib/db'
 import { NextRequest } from 'next/server'
 
 export const config = {
@@ -24,6 +29,14 @@ export default async function handler(req: NextRequest) {
       case 'PUT': {
         const body = await req.json() // (data: {id: number, date?: Date, content?: string}
         const data = await updateDailyNote(body.data)
+        return new Response(JSON.stringify(data), { status: 200 })
+      }
+      case 'DELETE': {
+        const id = req.nextUrl.searchParams.get('id')
+        if (!id) throw new Error('DELETE diary should have "id" query parameter')
+
+        const data = await deleteDailyNote(+id)
+        if (data === false) throw new Error('No matching diary id')
         return new Response(JSON.stringify(data), { status: 200 })
       }
     }
