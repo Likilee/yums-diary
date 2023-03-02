@@ -1,6 +1,7 @@
 import React, { useState, useRef, PropsWithChildren, MouseEvent } from 'react'
 import useOutsideClick from '@/hooks/useOutsideClick'
 import cn from 'classnames'
+import { TbCalendarEvent, TbTrash } from 'react-icons/tb'
 
 type Props = {
   triggerTimeMs?: number
@@ -24,7 +25,7 @@ function EditableWrapper({
     setScale(1.0)
   }
 
-  const handleMouseDown = () => {
+  const handlePointerDown = () => {
     timerRef.current = window.setTimeout(handleEditMode, triggerTimeMs)
     setScale(0.9)
   }
@@ -44,30 +45,32 @@ function EditableWrapper({
     onMove()
   }
 
-  const deleteButton = isEditMode && (
+  const deleteButton = (
     <button
-      className="px-2 py-1 bg-red-600 text-white rounded"
+      className=" p-2 bg-base-200 text-2xl text-base-content rounded-full border-2 border-base-300"
       onClick={handleOnDelete}
       onTouchStart={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
     >
-      Delete
+      <TbTrash />
     </button>
   )
-  const moveButton = isEditMode && (
+  const moveButton = (
     <button
-      className="px-2 py-1 bg-green-600 text-white rounded"
+      className=" p-2 bg-base-200 text-2xl text-base-content rounded-full border-2 border-base-300"
       onClick={handleOnMove}
       onTouchStart={(e) => e.stopPropagation()}
+      onMouseDown={(e) => e.stopPropagation()}
     >
-      Move
+      <TbCalendarEvent />
     </button>
   )
 
   return (
     <div
-      onMouseDown={handleMouseDown}
+      onMouseDown={handlePointerDown}
       onMouseUp={handleRelease}
-      onTouchStart={handleMouseDown}
+      onTouchStart={handlePointerDown}
       onTouchEnd={handleRelease}
       className={cn(
         'flex flex-row relative',
@@ -79,7 +82,11 @@ function EditableWrapper({
       }}
     >
       {children}
-      <div ref={containerRef} className="transform transition-all duration-500 ease-in-out">
+      <div
+        ref={containerRef}
+        className="absolute p-2 flex flex-row gap-2 top-1 right-1 transform transition-all duration-150 ease-in-out bg-base-100 bg-opacity-90"
+        style={{ transform: `scale(${isEditMode ? 1 : 0})` }}
+      >
         {moveButton}
         {deleteButton}
       </div>
