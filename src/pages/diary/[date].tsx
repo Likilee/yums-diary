@@ -67,7 +67,7 @@ export default function DailyPage() {
   }
   return (
     <>
-      <div className="h-screen w-full" ref={outsideClickBoundaryRef}>
+      <div className="min-h-full w-full" ref={outsideClickBoundaryRef}>
         <HiddenTitle show={true}>
           <DateTitle date={query.date as string} />
         </HiddenTitle>
