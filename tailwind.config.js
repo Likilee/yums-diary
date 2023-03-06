@@ -7,8 +7,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-leeseoyun)', ...fontFamily.sans],
-        leeseoyun: 'var(--font-leeseoyun)',
-        simkyungha: 'var(--font-simkyungha)',
+        leeseoyun: ['var(--font-leeseoyun)', ...fontFamily.serif],
+        simkyungha: ['var(--font-simkyungha)', ...fontFamily.serif],
+        pretendard: ['var(--font-pretendard)', ...fontFamily.mono],
       },
       spacing: {
         safebottom: 'env(safe-area-inset-bottom)',
