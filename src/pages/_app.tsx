@@ -11,13 +11,22 @@ const leeSeoyun = localFont({
   src: '../../public/font/LeeSeoyun.woff2',
   variable: '--font-leeseoyun',
   display: 'swap',
-  preload: true,
+  preload: false,
 })
 
 const simkyungha = localFont({
   src: '../../public/font/SimKyungha.woff2',
   variable: '--font-simkyungha',
+  preload: false,
+})
+
+const pretendardVaribale = localFont({
+  src: '../../public/font/PretendardKR-VF-distilled.woff2',
+  variable: '--font-pretendard',
+  weight: '45 920',
+  display: 'swap',
   preload: true,
+  adjustFontFallback: 'Arial',
 })
 
 const queryClient = new QueryClient({
@@ -38,7 +47,14 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <QueryClientProvider client={queryClient}>
-        <AppLayout className={cn(leeSeoyun.variable, simkyungha.variable, 'font-sans')}>
+        <AppLayout
+          className={cn(
+            leeSeoyun.variable,
+            simkyungha.variable,
+            pretendardVaribale.variable,
+            'font-pretendard',
+          )}
+        >
           <Component {...pageProps} />
         </AppLayout>
       </QueryClientProvider>
