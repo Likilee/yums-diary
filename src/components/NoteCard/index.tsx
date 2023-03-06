@@ -36,7 +36,7 @@ export default function NoteCard({
   useEffect(() => {
     setNewContent(content || '')
   }, [content])
-
+  const [isEditMode, setIsEditMode] = useState<boolean>(false)
   const debouncedUpdateDiary = useDebouncedUpdate(1000)
 
   const handleTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,9 +44,14 @@ export default function NoteCard({
     debouncedUpdateDiary({ id, content: event.target.value || undefined })
   }
 
+  const handleOnChangeEditMode = (isEditMode: boolean) => {
+    if (isEditMode) onEditMode()
+    setIsEditMode(isEditMode)
+  }
+
   return (
     <EditableWrapper
-      onEditMode={onEditMode}
+      onChangeEditMode={handleOnChangeEditMode}
       triggerTimeMs={500}
       boundary={outsideClickBoundary}
     >
@@ -55,6 +60,7 @@ export default function NoteCard({
         onChange={handleTextChange}
         minHeight="1rem"
         className="textarea textarea-ghost w-full whitespace-pre-wrap break-words resize-none text-lg border border-current rounded-md h-fit"
+        readOnly={isEditMode}
       />
     </EditableWrapper>
   )

@@ -5,13 +5,13 @@ import { TbCalendarEvent, TbTrash } from 'react-icons/tb'
 import { ModalTrigger } from '@/components/Modal'
 
 type Props = {
-  onEditMode: () => void
+  onChangeEditMode: (isEditMode: boolean) => void
   triggerTimeMs?: number
   boundary?: RefObject<HTMLElement>
 }
 
 export default function EditableWrapper({
-  onEditMode,
+  onChangeEditMode,
   triggerTimeMs = 750,
   children,
   boundary,
@@ -19,10 +19,14 @@ export default function EditableWrapper({
   const [isEditMode, setIsEditMode] = useState(false)
   const [scale, setScale] = useState(1.0)
   const timerRef = useRef<number | null>(null)
-  const containerRef = useOutsideClick<HTMLDivElement>(() => setIsEditMode(false), boundary)
+  const containerRef = useOutsideClick<HTMLDivElement>(() => {
+    onChangeEditMode(false)
+    setIsEditMode(false)
+  }, boundary)
 
   const handleEditMode = () => {
     setIsEditMode(true)
+    onChangeEditMode(true)
     setScale(1.0)
   }
 
@@ -38,12 +42,12 @@ export default function EditableWrapper({
 
   const handleOnDelete = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation()
-    onEditMode()
+    onChangeEditMode(true)
   }
 
   const handleOnMove = (event: MouseEvent<HTMLDivElement>) => {
     event.stopPropagation()
-    onEditMode()
+    onChangeEditMode(true)
   }
 
   const deleteButton = (

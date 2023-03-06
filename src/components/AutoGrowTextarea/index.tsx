@@ -8,6 +8,7 @@ interface AutoGrowTextareaProps {
   spellCheck?: boolean
   placeholder?: string
   minHeight?: string
+  readOnly?: boolean
 }
 
 export default function AutoGrowTextarea({
@@ -17,6 +18,7 @@ export default function AutoGrowTextarea({
   placeholder = '빛나는 정유미',
   spellCheck = false,
   minHeight = '256px',
+  readOnly = false,
 }: AutoGrowTextareaProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -31,12 +33,17 @@ export default function AutoGrowTextarea({
 
   return (
     <textarea
-      className={cn(`h-auto min-h-[${minHeight}]`, className)}
+      className={cn(`h-auto min-h-[${minHeight}]`, readOnly && 'select-none', className)}
       spellCheck={spellCheck}
       ref={textareaRef}
       value={value}
       onChange={onChange}
       placeholder={placeholder}
+      readOnly={readOnly}
+      onContextMenu={(e) => {
+        if (readOnly) e.preventDefault()
+      }}
+      unselectable={readOnly ? 'on' : 'off'}
     />
   )
 }
