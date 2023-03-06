@@ -11,13 +11,13 @@ const leeSeoyun = localFont({
   src: '../../public/font/LeeSeoyun.woff2',
   variable: '--font-leeseoyun',
   display: 'swap',
-  preload: true,
+  preload: false,
 })
 
 const simkyungha = localFont({
   src: '../../public/font/SimKyungha.woff2',
   variable: '--font-simkyungha',
-  preload: true,
+  preload: false,
 })
 
 const pretendardVaribale = localFont({
@@ -25,7 +25,7 @@ const pretendardVaribale = localFont({
   variable: '--font-pretendard',
   weight: '45 920',
   display: 'swap',
-  preload: false,
+  preload: true,
   adjustFontFallback: 'Arial',
 })
 
