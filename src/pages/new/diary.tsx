@@ -22,8 +22,6 @@ export default function NewDiaryPage() {
   const [content, setContent] = useState<string>('')
   const { mutate } = useCreateDailyNoteMutation()
   const { tempDaily, setTempDaily } = useTempDailyNote()
-  const dateTitleRef = useRef<HTMLHeadingElement>(null)
-  const isVisible = useIsVisible(dateTitleRef)
 
   useEffect(() => {
     setDate(new Date())
@@ -65,14 +63,11 @@ export default function NewDiaryPage() {
 
   return (
     <>
-      <HiddenTitle show={!isVisible}>
-        <DateTitle date={date} />
-      </HiddenTitle>
       <ModalTrigger modalId="calendar">
-        <h1 ref={dateTitleRef} className="text-lg font-semibold text-center mb-2 ">
+        <HiddenTitle show={true}>
           <DateTitle date={date} />
           <TbChevronDown className="inline-block ml-2" />
-        </h1>
+        </HiddenTitle>
       </ModalTrigger>
       <AutoGrowTextarea
         value={content}
