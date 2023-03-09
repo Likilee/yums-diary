@@ -1,4 +1,5 @@
-import { queryBuilder, CreateDiaryDTO, UpdateDiaryDTO } from '@/lib/planetscale'
+import { queryBuilder, CreateDiaryDTO, UpdateDiaryDTO, Notebook } from '@/lib/planetscale'
+import { CreateNotebookDTO } from '@/pages/api/notebook'
 import { sql } from 'kysely'
 
 const OFFSET_HOUR = 9 // UTC+9 seoul
@@ -75,6 +76,42 @@ export const getAllNoteCountByDate = async () => {
     .groupBy(sql`date(date_add(date, interval ${OFFSET_HOUR} hour))`)
     .having(count('id'), '>', 0)
     .orderBy('date', 'desc')
+    .execute()
+
+  return result
+}
+
+/* 💡 Notebook db */
+export async function createNotebook(data: CreateNotebookDTO) {
+  const result = await queryBuilder
+    .insertInto('notebook')
+    .values({
+      name: data.name,
+      position: data.position,
+      parent_id: data.parent_id,
+    })
+    .executeTakeFirstOrThrow()
+
+  const id = result.insertId
+
+  return id ? getNotebookById(Number(id)) : null
+}
+
+export async function getNotebookById(id: number) {
+  const result = await queryBuilder
+    .selectFrom('notebook')
+    .selectAll()
+    .where('id', '=', id)
+    .executeTakeFirst()
+  return result ? result : null
+}
+
+// 이후 stream 도 알아보자
+export async function getAllNotebooks() {
+  const result = await queryBuilder
+    .selectFrom('notebook')
+    .selectAll()
+    .orderBy('position', 'desc')
     .execute()
 
   return result
