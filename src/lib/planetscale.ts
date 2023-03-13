@@ -28,18 +28,20 @@ export interface UpdateDiaryDTO {
 
 export interface Notebook {
   id: Generated<number>
+  parent_id: number | null // 부모 notebook의 id
   name: string
+  position: number // float
   created_at: Generated<Date>
   updated_at: Generated<Date>
 }
 
 export interface Note {
   id: Generated<number>
-  notebook_id: number
+  parent_id: number // 부모 notebook의 id
   date: Date
   title: string
   content: string
-  position: number
+  position: number // float
   created_at: Generated<Date>
   updated_at: Generated<Date>
 }

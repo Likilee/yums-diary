@@ -26,7 +26,6 @@ export default function AppLayout({
         {children}
       </div>
       <BottomNavigation />
-      <CreateNoteModal />
       <AppToaster />
     </div>
   )
